@@ -1,0 +1,30 @@
+alias exa='command eza -F --git --icons'
+
+alias e='  exa --git-ignore --group-directories-first'
+alias ea=' exa -a           --group-directories-first'
+
+# -b,   --binary    file sizes with binary prefixes: Ki, Mi, Gi
+alias el=' exa -lb --grid --color-scale all --time-style=iso --git-ignore    --group-directories-first'
+# -S,   --blocks    filesystem block count
+# -m,   --modified  file’s contents were last changed: mtime
+# -U,   --created   
+#       --changed   file’s permission, name, etc metadata was last changed: ctime
+# -@,   --extended  file’s tags or labels (MacOS Finder), origin and MIME type (cURL), ...
+alias ela='exa -lb --grid --color-scale --time-style=iso -ma@S --changed --group-directories-first'
+
+# Setup aliases for TreeView: e1="e -T -L=1", ela9="ela -T -L=9"
+() {
+    local cmd i
+    for cmd in "$@"; do
+        for i in {1..9}; do
+            alias ${cmd}${i}="${cmd} -T -L=${i}"
+        done
+    done
+} e ea el ela
+
+# In order of newest to oldest
+alias em=' exa -lb --grid --color-scale --time-style=iso -m    --changed -s=mod  -r'
+alias ema='exa -lb --grid --color-scale --time-style=iso -ma@  --changed -s=mod  -r'
+# In order of largest to smallest
+alias es=' exa -lb --grid --color-scale --time-style=iso -Sm   --changed -s=size -r'
+alias esa='exa -lb --grid --color-scale --time-style=iso -Sma@ --changed -s=size -r'
